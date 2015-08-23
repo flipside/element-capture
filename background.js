@@ -3,6 +3,19 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         chrome.pageAction.show(sender.tab.id);
     }
     else if (request.type === "up") {
+        // Get window.devicePixelRatio from the page, not the popup
+        var scale = request.dimensions.devicePixelRatio && request.dimensions.devicePixelRatio !== 1 ?
+            1 / request.dimensions.devicePixelRatio : 1;
+
+        // if the canvas is scaled, then x- and y-positions have to make
+        // up for it
+        if (scale !== 1) {
+            request.dimensions.top = request.dimensions.top / scale;
+            request.dimensions.left = request.dimensions.left / scale;
+            request.dimensions.width = request.dimensions.width / scale;
+            request.dimensions.height = request.dimensions.height / scale;
+        }
+
         capture(sender.tab.id, request.dimensions);
     }
 
@@ -25,6 +38,7 @@ function capture(tabId, dimensions) {
                 document.body.appendChild(canvas);
             }
             var image = new Image();
+
             image.onload = function() {
                 canvas.width = dimensions.width;
                 canvas.height = dimensions.height;

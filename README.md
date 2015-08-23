@@ -1,8 +1,8 @@
-Element Capture
+Element Screenshot
 ===============
 
-This is a Chrome extension which will screen capture any HTML element of your choosing.
+This is a Chrome extension which will take screenshot of any HTML element in a webpage.
 
-Click the camera icon in the URL bar to begin selection, then hover over any element and click to capture an image and open it in a new tab.
+Click the camera icon in the URL bar, hover over the element you want to capture and click to take the screenshot.
 
-The icon is from http://findicons.com/icon/90219/camera?id=330056
+This extension was originally developed by Robinson and available [here](https://github.com/tlrobinson/element-capture), which is not maintained anymore. My version is a bug fixed version of the original.

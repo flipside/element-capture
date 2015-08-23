@@ -15,7 +15,8 @@ var overlay, outline;
 function start() {
     if (!overlay) {
         overlay = document.createElement("div");
-        overlay.style.position = "fixed";
+        overlay.id = "el_capture_overlay";
+        overlay.style.position = "absolute";
         overlay.style.top = "0px";
         overlay.style.left = "0px";
         overlay.style.width = "100%";
@@ -23,8 +24,8 @@ function start() {
         overlay.style.pointerEvents = "none";
         outline = document.createElement("div");
         outline.style.position = "fixed";
-        outline.style.border = BORDER_THICKNESS + "px solid rgba(255,0,0,0.5)";
-        outline.style.borderRadius = "5px";
+        outline.style.zIndex = "9";
+        outline.style.border = BORDER_THICKNESS + "px dotted rgb(244, 67, 54)";
         overlay.appendChild(outline);
     }
     if (!overlay.parentNode) {
@@ -40,7 +41,8 @@ function start() {
             dimensions.top = -window.scrollY;
             dimensions.left = -window.scrollX;
             var elem = e.target;
-            while (elem !== document.body) {
+            console.log(elem);
+            while (elem !== document.body && elem !== null) {
                 dimensions.top += elem.offsetTop;
                 dimensions.left += elem.offsetLeft;
                 elem = elem.offsetParent;
@@ -58,7 +60,8 @@ function start() {
         document.body.removeChild(overlay);
         document.body.removeEventListener("mousemove", mousemove, false);
         document.body.removeEventListener("mouseup", mouseup, false);
-        send({ type: "up", dimensions: dimensions });
+        dimensions.devicePixelRatio = window.devicePixelRatio;
+        setTimeout(function() { send({ type: "up", dimensions: dimensions }); }, 100);
     }
 }
 

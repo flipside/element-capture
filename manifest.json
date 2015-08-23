@@ -1,12 +1,13 @@
 {
-    "name": "Element Capture",
+    "name": "Element Screenshot",
     "version": "1.0",
     "manifest_version": 2,
-    "description": "Screen capture any element on a webpage.",
+    "description": "Take screenshot of any HTML element on a webpage.",
     "page_action": {
         "default_icon": "icon48.png"
     },
     "permissions": [
+        "activeTab",
         "tabs",
         "http://*/",
         "https://*/"
